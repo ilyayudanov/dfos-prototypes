@@ -105,9 +105,9 @@ export default function Dashboard() {
   return (
     <>      
       <div className="h-screen bg-black overflow-hidden">
-        <MobileConstraint viewport={viewport}>
-          {viewport === 'mobile' ? (
-            // Mobile Layout
+        {viewport === 'mobile' ? (
+          // Mobile Layout with constraint
+          <MobileConstraint viewport={viewport}>
             <div className="relative h-screen w-full">
             {/* Background Image */}
             <div className="absolute inset-0">
@@ -148,12 +148,12 @@ export default function Dashboard() {
                             variant="ghost" 
                             size="sm" 
                             className="text-gray-400 hover:text-white h-7 w-7 p-0"
+                            title="Close sidebar"
                           >
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <rect x="3" y="3" width="6" height="6" rx="1"/>
-                              <rect x="15" y="3" width="6" height="6" rx="1"/>
-                              <rect x="3" y="15" width="6" height="6" rx="1"/>
-                              <rect x="15" y="15" width="6" height="6" rx="1"/>
+                              <rect x="3" y="3" width="18" height="18" rx="2"/>
+                              <path d="M15 3v18"/>
+                              <path d="m10 9-3 3 3 3"/>
                             </svg>
                           </Button>
                         </div>
@@ -307,10 +307,11 @@ export default function Dashboard() {
                 </div>
               ))}
             </div>
-          </div>
+            </div>
+          </MobileConstraint>
         ) : (
-          // Desktop Layout
-          <div className="flex h-full">
+          // Desktop Layout - Full screen height
+          <div className="flex h-screen">
             {/* Desktop Left Sidebar - Collapsible */}
             <div className={`${sidebarCollapsed ? 'w-16' : 'w-[355px]'} bg-black border-r border-gray-800 flex flex-col transition-all duration-300`}>
               {/* Desktop Sidebar Header */}
@@ -326,12 +327,12 @@ export default function Dashboard() {
                     variant="ghost" 
                     size="sm" 
                     className="text-gray-400 hover:text-white h-7 w-7 p-0"
+                    title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="3" y="3" width="6" height="6" rx="1"/>
-                      <rect x="15" y="3" width="6" height="6" rx="1"/>
-                      <rect x="3" y="15" width="6" height="6" rx="1"/>
-                      <rect x="15" y="15" width="6" height="6" rx="1"/>
+                      <rect x="3" y="3" width="18" height="18" rx="2"/>
+                      <path d="M9 3v18"/>
+                      <path d="m14 9 3 3-3 3"/>
                     </svg>
                   </Button>
                 </div>
@@ -493,8 +494,7 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-          )}
-        </MobileConstraint>
+        )}
 
         {/* Viewport Controls - Bottom Right Corner with Back Button */}
         <ViewportControls 
