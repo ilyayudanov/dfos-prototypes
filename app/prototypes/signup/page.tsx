@@ -21,6 +21,7 @@ export default function SignUpFlow() {
   const [spaceName, setSpaceName] = useState("Daydreamer");
   const [profileName, setProfileName] = useState("Daydreamer");
   const [signMessages, setSignMessages] = useState(true);
+  const [showInfo, setShowInfo] = useState(false);
 
   const handleDomainSelect = (domain: string) => {
     setEmail(prev => prev.split('@')[0] + domain);
@@ -96,7 +97,11 @@ export default function SignUpFlow() {
 
   return (
     <>
-      <ViewportControls onViewportChange={setViewport} />
+      <ViewportControls 
+        onViewportChange={setViewport}
+        showInfo={showInfo}
+        onInfoToggle={setShowInfo}
+      />
       
       <div className="min-h-screen overflow-hidden">
         {isDarkStep ? (
@@ -626,22 +631,38 @@ export default function SignUpFlow() {
           </Button>
         </div>
 
-        {/* Design System Notes - Only visible in desktop mode for light steps */}
-        {viewport === 'desktop' && !isDarkStep && (
-          <div className="fixed bottom-4 left-4 z-40 max-w-sm">
-            <Card className="bg-white/90 backdrop-blur-sm">
+        {/* Design System Notes - Only when info is toggled */}
+        {viewport === 'desktop' && showInfo && (
+          <div className="fixed bottom-20 left-4 z-40 max-w-sm">
+            <Card className="bg-white/90 backdrop-blur-sm border shadow-xl">
               <CardContent className="p-4">
-                <h3 className="text-sm font-semibold mb-2">New Components Added</h3>
-                <div className="flex flex-wrap gap-1">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-sm font-semibold">Signup Components</h3>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={() => setShowInfo(false)}
+                    className="h-6 w-6 p-0 text-gray-400 hover:text-gray-600"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                  </Button>
+                </div>
+                <div className="flex flex-wrap gap-1 mb-3">
                   <Badge variant="secondary" className="text-xs">EmailDomainSuggestions</Badge>
                   <Badge variant="secondary" className="text-xs">ViewportControls</Badge>
                   <Badge variant="secondary" className="text-xs">MobileConstraint</Badge>
                   <Badge variant="secondary" className="text-xs">OTPInput</Badge>
                   <Badge variant="secondary" className="text-xs">Switch</Badge>
                 </div>
-                <p className="text-xs text-slate-600 mt-2">
-                  Complete signup: Email → OTP → Create Space → Profile
-                </p>
+                <div className="text-xs text-slate-600 space-y-1">
+                  <p>• <strong>Email:</strong> Domain suggestions and validation</p>
+                  <p>• <strong>OTP:</strong> 6-digit verification with paste</p>
+                  <p>• <strong>Create Space:</strong> Full-screen dark interface</p>
+                  <p>• <strong>Profile:</strong> Image upload and settings</p>
+                  <p>• <strong>Responsive:</strong> Mobile drawer, desktop modal/phone frame</p>
+                </div>
               </CardContent>
             </Card>
           </div>

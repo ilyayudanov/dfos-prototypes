@@ -29,6 +29,7 @@ export default function Dashboard() {
   const [viewport, setViewport] = useState<'mobile' | 'desktop'>('desktop');
   const [selectedSpace, setSelectedSpace] = useState("daydreamer");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
 
   const spaces: Space[] = [
     {
@@ -297,9 +298,11 @@ export default function Dashboard() {
         </div>
 
         {/* Viewport Controls - Bottom Right Corner */}
-        <div className="fixed bottom-4 right-4 z-50">
-          <ViewportControls onViewportChange={setViewport} />
-        </div>
+        <ViewportControls 
+          onViewportChange={setViewport} 
+          showInfo={showInfo}
+          onInfoToggle={setShowInfo}
+        />
 
         {/* Mobile Responsive Message */}
         {viewport === 'mobile' && (
@@ -317,21 +320,36 @@ export default function Dashboard() {
           </div>
         )}
 
-        {/* Design System Notes - Desktop only */}
-        {viewport === 'desktop' && (
+        {/* Design System Notes - Only when info is toggled */}
+        {viewport === 'desktop' && showInfo && (
           <div className="fixed bottom-20 left-4 z-40 max-w-sm">
-            <Card className="bg-white/90 backdrop-blur-sm">
+            <Card className="bg-white/90 backdrop-blur-sm border shadow-xl">
               <CardContent className="p-4">
-                <h3 className="text-sm font-semibold mb-2">Dashboard Components</h3>
-                <div className="flex flex-wrap gap-1">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-sm font-semibold">Dashboard Components</h3>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={() => setShowInfo(false)}
+                    className="h-6 w-6 p-0 text-gray-400 hover:text-gray-600"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                  </Button>
+                </div>
+                <div className="flex flex-wrap gap-1 mb-3">
                   <Badge variant="secondary" className="text-xs">CollapsibleSidebar</Badge>
                   <Badge variant="secondary" className="text-xs">Avatar</Badge>
                   <Badge variant="secondary" className="text-xs">SpaceSelection</Badge>
                   <Badge variant="secondary" className="text-xs">FloatingCards</Badge>
                 </div>
-                <p className="text-xs text-slate-600 mt-2">
-                  Foldable sidebar • Space switching • Framed content
-                </p>
+                <div className="text-xs text-slate-600 space-y-1">
+                  <p>• <strong>Sidebar:</strong> Click grid icon to collapse/expand</p>
+                  <p>• <strong>Spaces:</strong> Click to switch active space</p>
+                  <p>• <strong>Cards:</strong> Floating interactive elements</p>
+                  <p>• <strong>Responsive:</strong> Desktop-optimized layout</p>
+                </div>
               </CardContent>
             </Card>
           </div>
