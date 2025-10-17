@@ -17,8 +17,8 @@ export default function Home() {
       title: "Dashboard",
       description: "Main user interface and navigation system",
       href: "/prototypes/dashboard",
-      status: "Planning",
-      features: ["Data visualization", "Quick actions", "Navigation"]
+      status: "In Progress", 
+      features: ["Sidebar navigation", "Space management", "Floating cards"]
     },
     {
       title: "User Profile",

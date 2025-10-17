@@ -72,6 +72,24 @@ export default function Components() {
       description: "Toggle switches for boolean settings",
       path: "/components/ui/switch.tsx",
       variants: ["default", "disabled"]
+    },
+    {
+      name: "Avatar",
+      description: "User profile images with fallback support",
+      path: "/components/ui/avatar.tsx",
+      variants: ["default", "fallback", "custom-size"]
+    },
+    {
+      name: "DropdownMenu",
+      description: "Context menus and selection dropdowns",
+      path: "/components/ui/dropdown-menu.tsx",
+      variants: ["basic", "with-icons", "with-separators"]
+    },
+    {
+      name: "Sidebar",
+      description: "Navigation sidebar for dashboard layouts",
+      path: "/components/ui/sidebar.tsx",
+      variants: ["default", "collapsible"]
     }
   ];
 

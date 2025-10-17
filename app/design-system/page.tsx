@@ -11,6 +11,8 @@ import { EmailDomainSuggestions } from "@/components/ui/email-domain-suggestions
 import { ViewportControls } from "@/components/ui/viewport-controls";
 import { OTPInput } from "@/components/ui/otp-input";
 import { Switch } from "@/components/ui/switch";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export default function DesignSystem() {
   return (
@@ -311,6 +313,86 @@ export default function DesignSystem() {
                   <p>• Supports controlled and uncontrolled states</p>
                   <p>• Can be disabled for read-only display</p>
                   <p>• Integrates with form libraries</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Avatar */}
+            <div className="mb-8">
+              <h3 className="text-lg font-medium text-slate-900 dark:text-slate-100 mb-4">
+                Avatar
+              </h3>
+              <div className="space-y-4">
+                <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                  User profile images with fallback text for spaces and users
+                </p>
+                <div className="flex items-center gap-4 p-8 bg-slate-100 dark:bg-slate-800 rounded-lg">
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src="/images/logo.svg" alt="User" />
+                    <AvatarFallback>U</AvatarFallback>
+                  </Avatar>
+                  <Avatar className="h-8 w-8">
+                    <AvatarFallback className="bg-blue-600 text-white">D</AvatarFallback>
+                  </Avatar>
+                  <Avatar className="h-6 w-6">
+                    <AvatarFallback className="bg-green-600 text-white text-xs">M</AvatarFallback>
+                  </Avatar>
+                </div>
+                <div className="text-xs text-slate-500 space-y-1">
+                  <p>• Supports image URLs with automatic fallback</p>
+                  <p>• Customizable fallback text and styling</p>
+                  <p>• Multiple sizes (6, 8, 12 Tailwind units)</p>
+                  <p>• Accessible with proper alt attributes</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Dropdown Menu */}
+            <div className="mb-8">
+              <h3 className="text-lg font-medium text-slate-900 dark:text-slate-100 mb-4">
+                Dropdown Menu
+              </h3>
+              <div className="space-y-4">
+                <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                  Context menus and selection dropdowns with keyboard navigation
+                </p>
+                <div className="p-8 bg-slate-100 dark:bg-slate-800 rounded-lg">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline">
+                        Select Space
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="ml-2">
+                          <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="start">
+                      <DropdownMenuItem>
+                        <Avatar className="h-4 w-4 mr-2">
+                          <AvatarFallback className="text-xs">D</AvatarFallback>
+                        </Avatar>
+                        Daydreamer
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Avatar className="h-4 w-4 mr-2">
+                          <AvatarFallback className="text-xs">M</AvatarFallback>
+                        </Avatar>
+                        Metalabel
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <Avatar className="h-4 w-4 mr-2">
+                          <AvatarFallback className="text-xs">D</AvatarFallback>
+                        </Avatar>
+                        Dark Forest
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
+                <div className="text-xs text-slate-500 space-y-1">
+                  <p>• Keyboard navigation support (arrow keys, escape)</p>
+                  <p>• Automatic positioning and collision detection</p>
+                  <p>• Supports icons, avatars, and complex content</p>
+                  <p>• Customizable alignment and styling</p>
                 </div>
               </div>
             </div>
