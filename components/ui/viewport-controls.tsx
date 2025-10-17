@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -9,9 +10,20 @@ interface ViewportControlsProps {
   onViewportChange?: (viewport: 'mobile' | 'desktop') => void;
   showInfo?: boolean;
   onInfoToggle?: (show: boolean) => void;
+  showBackButton?: boolean;
+  backHref?: string;
+  backLabel?: string;
 }
 
-export function ViewportControls({ className, onViewportChange, showInfo, onInfoToggle }: ViewportControlsProps) {
+export function ViewportControls({ 
+  className, 
+  onViewportChange, 
+  showInfo, 
+  onInfoToggle,
+  showBackButton = false,
+  backHref = "/",
+  backLabel = "← Back"
+}: ViewportControlsProps) {
   const [activeViewport, setActiveViewport] = useState<'mobile' | 'desktop'>('mobile');
 
   const handleViewportChange = (viewport: 'mobile' | 'desktop') => {
@@ -30,6 +42,13 @@ export function ViewportControls({ className, onViewportChange, showInfo, onInfo
       className
     )}>
       <div className="flex items-center gap-2">
+        {/* Back Button */}
+        {showBackButton && (
+          <Button asChild variant="outline" size="sm" className="h-8 px-3 text-xs">
+            <Link href={backHref}>{backLabel}</Link>
+          </Button>
+        )}
+        
         <div className="flex border border-slate-200 rounded-md">
           <Button
             variant="ghost"
@@ -56,22 +75,24 @@ export function ViewportControls({ className, onViewportChange, showInfo, onInfo
         </div>
         
         {/* Info Toggle */}
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={handleInfoToggle}
-          className={cn(
-            "h-8 w-8 p-0 text-slate-600 hover:text-slate-900",
-            showInfo && "bg-slate-100 text-slate-900"
-          )}
-          title="Toggle component info"
-        >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 16v-4"/>
-            <path d="M12 8h.01"/>
-          </svg>
-        </Button>
+        {onInfoToggle && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleInfoToggle}
+            className={cn(
+              "h-8 w-8 p-0 text-slate-600 hover:text-slate-900",
+              showInfo && "bg-slate-100 text-slate-900"
+            )}
+            title="Toggle component info"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 16v-4"/>
+              <path d="M12 8h.01"/>
+            </svg>
+          </Button>
+        )}
       </div>
     </div>
   );

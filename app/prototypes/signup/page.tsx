@@ -97,12 +97,6 @@ export default function SignUpFlow() {
 
   return (
     <>
-      <ViewportControls 
-        onViewportChange={setViewport}
-        showInfo={showInfo}
-        onInfoToggle={setShowInfo}
-      />
-      
       <div className="min-h-screen overflow-hidden">
         {isDarkStep ? (
           // Create Space & Profile Steps - Phone frame for desktop, full screen for mobile
@@ -620,16 +614,15 @@ export default function SignUpFlow() {
           </>
         )}
 
-        {/* Back Navigation - Fixed Position */}
-        <div className="fixed top-4 left-4 z-40">
-          <Button asChild variant="outline" size="sm" className={
-            isDarkStep
-              ? "bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20" 
-              : "bg-white/90 backdrop-blur-sm"
-          }>
-            <Link href="/">← Back</Link>
-          </Button>
-        </div>
+        {/* Viewport Controls - Bottom Right Corner */}
+        <ViewportControls 
+          onViewportChange={setViewport}
+          showInfo={showInfo}
+          onInfoToggle={setShowInfo}
+          showBackButton={true}
+          backHref="/"
+          backLabel="← Prototypes"
+        />
 
         {/* Design System Notes - Only when info is toggled */}
         {viewport === 'desktop' && showInfo && (

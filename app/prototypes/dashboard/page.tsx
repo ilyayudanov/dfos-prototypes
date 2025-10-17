@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ViewportControls } from "@/components/ui/viewport-controls";
+import { ViewportControls, MobileConstraint } from "@/components/ui/viewport-controls";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
@@ -106,9 +106,10 @@ export default function Dashboard() {
   return (
     <>      
       <div className="h-screen bg-black overflow-hidden">
-        {viewport === 'mobile' ? (
-          // Mobile Layout
-          <div className="relative h-full w-full">
+        <MobileConstraint viewport={viewport}>
+          {viewport === 'mobile' ? (
+            // Mobile Layout
+            <div className="relative h-screen w-full">
             {/* Background Image */}
             <div className="absolute inset-0">
               <Image
@@ -493,20 +494,17 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-        )}
+          )}
+        </MobileConstraint>
 
-        {/* Back Navigation */}
-        <div className="fixed top-4 left-4 z-50">
-          <Button asChild variant="outline" size="sm" className="bg-white/90 backdrop-blur-sm">
-            <Link href="/">← Back to Prototypes</Link>
-          </Button>
-        </div>
-
-        {/* Viewport Controls - Bottom Right Corner */}
+        {/* Viewport Controls - Bottom Right Corner with Back Button */}
         <ViewportControls 
           onViewportChange={setViewport}
           showInfo={showInfo}
           onInfoToggle={setShowInfo}
+          showBackButton={true}
+          backHref="/"
+          backLabel="← Prototypes"
         />
 
         {/* Design System Notes - Only when info is toggled */}
